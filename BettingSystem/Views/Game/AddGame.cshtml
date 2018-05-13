@@ -1,0 +1,27 @@
+﻿@model BettingSystem.Models.Game
+@{
+    ViewBag.Title = "AddGame";
+}
+
+<h2>AddGame</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(u => u.HomeTeamId)<br />
+    @Html.DropDownListFor(g => g.HomeTeamId, ViewBag.Teams as SelectList, "Select Home Team")<br />
+
+    @Html.LabelFor(u => u.AwayTeamId)<br />
+    @Html.DropDownListFor(g => g.AwayTeamId, ViewBag.Teams as SelectList, "Select Away Team Id")<br />
+
+    @Html.LabelFor(u => u.CompetitionId)<br />
+    @Html.DropDownListFor(g => g.CompetitionId, ViewBag.Competitions as SelectList, "Select Competition Id")<br />
+
+    @Html.LabelFor(u => u.Date)<br \ />
+    @Html.EditorFor(u => u.Date, new { type = "date" }) <br \ />
+
+    <p>
+        <button type="submit">Create Game</button>
+    </p>
+}

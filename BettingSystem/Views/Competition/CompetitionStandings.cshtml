@@ -1,0 +1,13 @@
+﻿@model BettingSystem.Models.ViewModels.CompetitionViewModel
+@{
+    ViewBag.Title = "CompetitionStandings";
+}
+
+<div class="jumbotron container">
+    @foreach (var item in Model.Users)
+    {
+        <div>@item.Username</div>
+        <div>@item.Points</div>
+    }
+</div>
+

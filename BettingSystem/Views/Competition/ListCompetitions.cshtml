@@ -1,0 +1,45 @@
+﻿@model BettingSystem.Models.Competition[]
+
+@{
+    ViewBag.Title = "ListCompetitions";
+}
+
+<h2>ListCompetitions</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Games</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+            foreach (var competition in Model)
+            {
+                <tr>
+                    <td>@counter</td>
+                    <td>@competition.Name</td>
+                    <td>@Html.ActionLink("Enter Competition", "CompetitionStandings", new { competitionId = competition.Id }, new { @class = "btn btn-sm btn-warning" })</td>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Edit", "EditCompetition", new { competitionId = competition.Id }, new { @class = "btn btn-sm btn-warning" })
+                        }
+                    </td>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Delete", "DeleteCompetition", new { competitionId = competition.Id }, new { @class = "btn btn-sm btn-warning" })
+                        }
+                    </td>
+                </tr>
+                counter = counter + 1;
+            }
+        }
+    </tbody>
+</table>

@@ -1,0 +1,40 @@
+﻿@model BettingSystem.Models.ViewModels.TeamListViewModel
+@{
+    ViewBag.Title = "ListTeams";
+}
+
+<h2>Teams</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+            foreach (var team in Model.Teams)
+            {
+                <tr>
+                    <td>@counter</td>
+                    <td>@team.Name</td>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Edit", "EditTeam", new { teamId = team.Id }, new { @class = "btn btn-sm btn-warning" })
+                        }
+                    </td>
+                    <td>
+                        @if (User.IsInRole("admin"))
+                        {
+                            @Html.ActionLink("Delete", "DeleteTeam", new { teamId = team.Id }, new { @class = "btn btn-sm btn-warning" })
+                        }
+                    </td>
+                </tr>
+                counter = counter + 1;
+            }
+        }
+    </tbody>
+</table>

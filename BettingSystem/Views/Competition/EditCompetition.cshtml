@@ -1,0 +1,19 @@
+﻿@model BettingSystem.Models.Competition
+
+@{
+    ViewBag.Title = "EditCompetition";
+}
+
+<h2>EditCompetition</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(u => u.Id)
+    @Html.LabelFor(u => u.Name)<br />
+    @Html.TextBoxFor(u => u.Name)<br />
+    <p>
+        <button type="submit">Edit Competition</button>
+    </p>
+}

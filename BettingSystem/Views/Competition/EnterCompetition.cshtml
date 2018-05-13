@@ -1,0 +1,48 @@
+﻿@model BettingSystem.Models.Configurations.CompetitionViewModel
+
+@{
+    ViewBag.Title = "EnterCompetition";
+}
+
+<h2>@Model.Name</h2>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>HomeTeam</th>
+            <th>HomeTeam</th>
+            <th>Game Over</th>
+            <th>Result</th>
+            <th>Date</th>
+            <th>Bet</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int counter = 1;
+            foreach (var game in Model.Games)
+            {
+                <tr>
+                    <th>@counter</th>
+                    <td>@game.HomeTeam</td>
+                    <td>@game.AwayTeam</td>
+                    <td>@game.IsOver</td>
+                    <td>@game.HomeGoals : @game.AwayGoals</td>
+                    <td>@game.Date</td>
+                    <td>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @Html.ActionLink("Make bet", "Bet", new { gameId = game.Id }, new { @class = "btn btn-sm btn-warning" })
+                        }
+
+                    </td>
+                </tr>
+                counter = counter + 1;
+            }
+        }
+    </tbody>
+</table>
+

@@ -1,0 +1,18 @@
+﻿@model BettingSystem.Models.Team
+@{
+    ViewBag.Title = "AddTeam";
+}
+
+<h2>AddTeam</h2>
+
+@Html.ValidationSummary(true)
+
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(u => u.Name)<br />
+    @Html.TextBoxFor(u => u.Name) <br />
+    <p>
+        <button type="submit">Create Team</button>
+    </p>
+}

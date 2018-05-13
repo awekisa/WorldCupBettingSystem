@@ -1,0 +1,60 @@
+﻿@model BettingSystem.Models.ViewModels.BetModel[]
+@{
+    ViewBag.Title = "UserBets";
+}
+
+@{
+    int counter = 1;
+}
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>N</th>
+            <th>Game</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bet in Model)
+        {
+            <tr>
+                <th>@counter</th>
+                <th>
+                    <form class="form-inline" action="EditBet" method="post">
+                        <div class="form-group">
+                            <input type="hidden" name="id" value="@bet.Id" />
+                            <input type="hidden" name="gameId" value="@bet.GameId" />
+                            <input type="hidden" name="competitionId" value="@bet.CompetitionId" />
+                            <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
+                            @if (bet.Date < DateTime.Now)
+                            {
+                                <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+                            }
+                            else
+                            {
+                                <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+                            }
+                            
+                            <span class="col-md-1 text-center">:</span>
+                            @if (bet.Date < DateTime.Now)
+                            {
+                                <input class="col-md-1" type="number" min="0" name="awayGoals" value=" @bet.AwayGoals" />
+                            }
+                            else
+                            {
+                                <input class="col-md-1" type="number" min="0" name="awayGoals" value=" @bet.AwayGoals" disabled />
+                            }                           
+                            <input class="col-md-3" value="@bet.AwayTeam" disabled />
+                            <input class="col-md-2" type="submit" value="Change" />
+                        </div>
+                    </form>
+                </th>
+                <td>@bet.Date</td>
+            </tr>
+
+            counter++;
+        }
+    </tbody>
+</table>
+

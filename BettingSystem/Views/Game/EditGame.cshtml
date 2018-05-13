@@ -1,0 +1,36 @@
+﻿@model BettingSystem.Models.ViewModels.GameItem
+@{
+    ViewBag.Title = "EditGame";
+}
+
+<h2>EditGame</h2>
+
+@Html.ValidationSummary(true)
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(u => u.Id)
+    @Html.LabelFor(u => u.HomeTeamId)<br />
+    @Html.DropDownListFor(g => g.HomeTeamId, ViewBag.Teams as SelectList, "Select Home Team")<br />
+
+    @Html.LabelFor(u => u.AwayTeamId)<br />
+    @Html.DropDownListFor(g => g.AwayTeamId, ViewBag.Teams as SelectList, "Select Away Team Id")<br />
+
+    Html.LabelFor(u => u.CompetitionId)<br />
+    @Html.DropDownListFor(g => g.CompetitionId, ViewBag.Competitions as SelectList, "Select Competition Id")<br />
+
+    @Html.LabelFor(u => u.IsOver)<br \ />
+    @Html.CheckBoxFor(u => u.IsOver) <br \ />
+
+    @Html.LabelFor(u => u.HomeGoals)<br \ />
+    @Html.TextBoxFor(u => u.HomeGoals) <br \ />
+
+    @Html.LabelFor(u => u.AwayGoals)<br \ />
+    @Html.TextBoxFor(u => u.AwayGoals) <br \ />
+
+    @Html.LabelFor(u => u.Date)<br \ />
+        @Html.TextBoxFor(u => u.Date) <br \ />
+    <p>
+        <button type="submit">Edit Game</button>
+    </p>
+}
