@@ -16,23 +16,31 @@ namespace BettingSystem.Controllers
             using (var db = new BettingSystemDbContext())
             {
                 var user = db.Users.Single(u => u.Username == User.Identity.Name);
+                var bets = db.Bets.ToArray();
 
-                var bets = db.Games
-                    .Where(g => g.Date < DateTime.Now && g.Bets.All(b => b.UserId != user.Id))
+                var games = db.Games
+                    //.Where(g => !g.IsOver && g.Bets.All(b => b.UserId != user.Id))
                     .Select(g => new BetModel
                     {
                         GameId = g.Id,
+                        UserId = user.Id,
                         CompetitionId = g.CompetitionId,
                         HomeTeam = g.HomeTeam.Name,
                         AwayTeam = g.AwayTeam.Name,
                         HomeGoals = g.HomeGoals,
                         AwayGoals = g.AwayGoals,
                         Date = g.Date,
-                        BetMade = g.Bets.Any(b => user.Bets.Any(ub => ub.Id == b.Id))
+                        BetMade = g.Bets.Any(b => b.GameId == g.Id && b.UserId == user.Id),
                     })
                     .ToArray();
 
-                return View(bets);
+                foreach (var game in games)
+                {
+                    game.HomeGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId).HomeGoals : game.HomeGoals;
+                    game.AwayGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId).AwayGoals : game.AwayGoals;
+                }
+
+                return View(games);
             }
         }
 
@@ -44,22 +52,18 @@ namespace BettingSystem.Controllers
             {
                 var userId = db.Users.Single(u => u.Username == User.Identity.Name).Id;
 
-                if (!betModel.BetMade)
+                Bet bet = new Bet
                 {
-                    Bet bet = new Bet
-                    {
-                        GameId = betModel.GameId,
-                        UserId = userId,
-                        CompetitionId = betModel.CompetitionId,
-                        HomeGoals = betModel.HomeGoals,
-                        AwayGoals = betModel.AwayGoals,
-                        Date = DateTime.Now
-                    };
+                    GameId = betModel.GameId,
+                    UserId = userId,
+                    CompetitionId = betModel.CompetitionId,
+                    HomeGoals = betModel.HomeGoals,
+                    AwayGoals = betModel.AwayGoals,
+                    Date = DateTime.Now
+                };
 
-                    db.Bets.Add(bet);
-                    db.SaveChanges();
-                }
-
+                db.Bets.Add(bet);
+                db.SaveChanges();
                 return RedirectToAction("UserBets", "Bet");
             }
         }
@@ -72,7 +76,7 @@ namespace BettingSystem.Controllers
             {
                 var userId = db.Users.Single(u => u.Username == User.Identity.Name).Id;
 
-                var dbBet = db.Bets.First(b => b.Id == betModel.Id);
+                var dbBet = db.Bets.First(b => b.UserId == betModel.UserId && b.GameId == betModel.GameId);
                 dbBet.GameId = betModel.GameId;
                 dbBet.UserId = userId;
                 dbBet.CompetitionId = betModel.CompetitionId;

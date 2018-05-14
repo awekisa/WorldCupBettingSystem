@@ -14,7 +14,7 @@ namespace BettingSystem.Models.Configurations
         {
             this.HasMany(e => e.Bets)
                 .WithRequired(e => e.User)
-                .HasForeignKey(e => e.UserId); 
+                .HasForeignKey(e => e.UserId);
         }
     }
 }

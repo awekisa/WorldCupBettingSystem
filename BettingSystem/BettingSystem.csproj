@@ -176,6 +176,14 @@
     <Compile Include="Migrations\201805061808450_bets.Designer.cs">
       <DependentUpon>201805061808450_bets.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805140849048_unique-usernames2.cs" />
+    <Compile Include="Migrations\201805140849048_unique-usernames2.Designer.cs">
+      <DependentUpon>201805140849048_unique-usernames2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805140903296_GameIsOver.cs" />
+    <Compile Include="Migrations\201805140903296_GameIsOver.Designer.cs">
+      <DependentUpon>201805140903296_GameIsOver.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bet.cs" />
     <Compile Include="Models\BettingSystemDbContext.cs" />
@@ -258,6 +266,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805061808450_bets.resx">
       <DependentUpon>201805061808450_bets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140849048_unique-usernames2.resx">
+      <DependentUpon>201805140849048_unique-usernames2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805140903296_GameIsOver.resx">
+      <DependentUpon>201805140903296_GameIsOver.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

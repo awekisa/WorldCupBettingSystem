@@ -93,7 +93,6 @@ namespace BettingSystem.Controllers
                 {
                     dbGame.HomeTeamId = game.HomeTeamId;
                     dbGame.AwayTeamId = game.AwayTeamId;
-                    dbGame.IsOver = game.IsOver;
                     dbGame.CompetitionId = game.CompetitionId;
                     dbGame.Competition = game.Competition;
                     dbGame.HomeGoals = game.HomeGoals;
@@ -140,7 +139,6 @@ namespace BettingSystem.Controllers
                         AwayTeam = g.AwayTeam.Name,
                         HomeGoals = g.HomeGoals,
                         AwayGoals = g.AwayGoals,
-                        IsOver = g.IsOver,
                         Date = g.Date
                     }).ToList()
                 };

@@ -9,6 +9,7 @@ namespace BettingSystem.Models.ViewModels
     {
         public int Id { get; set; }
         public int GameId { get; set; }
+        public int UserId { get; set; }
         public int? CompetitionId { get; set; }
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
@@ -16,5 +17,6 @@ namespace BettingSystem.Models.ViewModels
         public int AwayGoals { get; set; }
         public DateTime Date { get; set; }
         public bool BetMade { get; set; }
+        public bool IsOver { get; set; }
     }
 }

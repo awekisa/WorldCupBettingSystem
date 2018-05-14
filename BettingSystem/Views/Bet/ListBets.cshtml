@@ -18,26 +18,86 @@
     <tbody>
         @foreach (var bet in Model)
         {
-            <tr>
-                <th>@counter</th>
-                <th>
-                    <form class="form-inline" action="AddBet" method="post">
-                        <div class="form-group">
-                            <input type="hidden" name="gameId" value="@bet.GameId" />
-                            <input type="hidden" name="competitionId" value="@bet.CompetitionId" />
-                            <input type="hidden" name="homeTeam" value="@bet.HomeTeam" />
-                            <input type="hidden" name="awayTeam" value="@bet.AwayTeam" />
-                            <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled/>
-                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" placeholder="0" />
-                            <span class="col-md-1 text-center">:</span>
-                            <input class="col-md-1" type="number" min="0" name="awayGoals" placeholder="0" />
-                            <input class="col-md-3" value="@bet.AwayTeam" disabled />
-                            <input class="col-md-2" type="submit" value="Bet" />
-                        </div>
-                    </form>
-                </th>
-                <td>@bet.Date</td>
-            </tr>
+
+            if (bet.BetMade)
+            {
+                <tr>
+                    <th>@counter</th>
+                    <th>
+                        <form class="form-inline" action="EditBet" method="post">
+                            <div class="form-group">
+                                <input type="hidden" name="gameId" value="@bet.GameId" />
+                                <input type="hidden" name="userId" value="@bet.UserId" />
+                                <input type="hidden" name="competitionId" value="@bet.CompetitionId" />
+                                <input type="hidden" name="homeTeam" value="@bet.HomeTeam" />
+                                <input type="hidden" name="awayTeam" value="@bet.AwayTeam" />
+                                <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
+
+                                @if (bet.IsOver)
+    {
+                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
+}
+else
+{
+                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+}
+                                <span class="col-md-1 text-center">:</span>
+                                @if (bet.IsOver)
+    {
+                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
+}
+else
+{
+                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
+}
+
+                                <input class="col-md-3" value="@bet.AwayTeam" disabled />
+                                <input class="col-md-2" type="submit" value="Change" />
+                            </div>
+                        </form>
+                    </th>
+                    <td>@bet.Date</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <th>@counter</th>
+                    <th>
+                        <form class="form-inline" action="AddBet" method="post">
+                            <div class="form-group">
+                                <input type="hidden" name="gameId" value="@bet.GameId" />
+                                <input type="hidden" name="competitionId" value="@bet.CompetitionId" />
+                                <input type="hidden" name="homeTeam" value="@bet.HomeTeam" />
+                                <input type="hidden" name="awayTeam" value="@bet.AwayTeam" />
+                                <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
+
+                                @if (bet.IsOver)
+    {
+                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
+}
+else
+{
+                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+}
+                                <span class="col-md-1 text-center">:</span>
+                                @if (bet.IsOver)
+    {
+                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
+}
+else
+{
+                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
+}
+
+                                <input class="col-md-3" value="@bet.AwayTeam" disabled />
+                                <input class="col-md-2" type="submit" value="Bet" />
+                            </div>
+                        </form>
+                    </th>
+                    <td>@bet.Date</td>
+                </tr>
+            }
 
             counter++;
         }

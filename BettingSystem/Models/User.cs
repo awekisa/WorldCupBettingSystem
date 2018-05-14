@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BettingSystem.Models
 {
@@ -15,6 +16,8 @@ namespace BettingSystem.Models
         public int Id { get; set; }
 
         [Required]
+        [Index(IsUnique = true)]
+        [StringLength(200)]
         public string Username { get; set; }
 
         [Required]

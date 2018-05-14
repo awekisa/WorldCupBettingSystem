@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BettingSystem.Models
 {
@@ -28,7 +29,8 @@ namespace BettingSystem.Models
         public int HomeGoals { get; set; }
         public int AwayGoals { get; set; }
 
-        public bool IsOver { get; set; }
+        [NotMapped]
+        public bool IsOver => this.Date > DateTime.Now;
 
         [Required]
         public DateTime Date { get; set; }
