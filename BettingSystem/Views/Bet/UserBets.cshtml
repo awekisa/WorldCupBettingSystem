@@ -7,12 +7,17 @@
     int counter = 1;
 }
 
+<div class="container">
+    <h1>@User.Identity.Name's bets</h1>
+</div>
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
             <th>N</th>
             <th>Game</th>
-            <th>Date</th>
+            <th>Game Date</th>
+            <th>Bet Date</th>
         </tr>
     </thead>
     <tbody>
@@ -27,29 +32,34 @@
                             <input type="hidden" name="gameId" value="@bet.GameId" />
                             <input type="hidden" name="competitionId" value="@bet.CompetitionId" />
                             <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
-                            @if (bet.Date < DateTime.Now)
+                            @if (bet.GameDate < bet.Date)
                             {
                                 <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
                             }
                             else
                             {
-                                <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+                                <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
                             }
-                            
+
                             <span class="col-md-1 text-center">:</span>
-                            @if (bet.Date < DateTime.Now)
+                            @if (bet.GameDate < bet.Date)
                             {
                                 <input class="col-md-1" type="number" min="0" name="awayGoals" value=" @bet.AwayGoals" />
                             }
                             else
                             {
                                 <input class="col-md-1" type="number" min="0" name="awayGoals" value=" @bet.AwayGoals" disabled />
-                            }                           
+                            }
                             <input class="col-md-3" value="@bet.AwayTeam" disabled />
-                            <input class="col-md-2" type="submit" value="Change" />
+
+                            @if (bet.GameDate < bet.Date)
+                            {
+                                <input class="col-md-2" type="submit" value="Change" />
+                            }
                         </div>
                     </form>
                 </th>
+                <td>@bet.GameDate</td>
                 <td>@bet.Date</td>
             </tr>
 

@@ -31,13 +31,14 @@ namespace BettingSystem.Controllers
                         AwayGoals = g.AwayGoals,
                         Date = g.Date,
                         BetMade = g.Bets.Any(b => b.GameId == g.Id && b.UserId == user.Id),
+                        IsOver = g.Date > DateTime.Now
                     })
                     .ToArray();
 
                 foreach (var game in games)
                 {
-                    game.HomeGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId).HomeGoals : game.HomeGoals;
-                    game.AwayGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId).AwayGoals : game.AwayGoals;
+                    game.HomeGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId && b.UserId == user.Id).HomeGoals : game.HomeGoals;
+                    game.AwayGoals = game.BetMade ? bets.Single(b => b.GameId == game.GameId && b.UserId == user.Id).AwayGoals : game.AwayGoals;
                 }
 
                 return View(games);
@@ -76,7 +77,7 @@ namespace BettingSystem.Controllers
             {
                 var userId = db.Users.Single(u => u.Username == User.Identity.Name).Id;
 
-                var dbBet = db.Bets.First(b => b.UserId == betModel.UserId && b.GameId == betModel.GameId);
+                var dbBet = db.Bets.First(b => b.UserId == userId && b.GameId == betModel.GameId);
                 dbBet.GameId = betModel.GameId;
                 dbBet.UserId = userId;
                 dbBet.CompetitionId = betModel.CompetitionId;
@@ -98,16 +99,17 @@ namespace BettingSystem.Controllers
                 var userId = db.Users.Single(u => u.Username == User.Identity.Name).Id;
                 var bets = db.Bets
                     .Where(b => b.UserId == userId)
-                    .Select(g => new BetModel
+                    .Select(b => new BetModel
                     {
-                        Id = g.Id,
-                        GameId = g.GameId,
-                        CompetitionId = g.CompetitionId,
-                        HomeTeam = g.Game.HomeTeam.Name,
-                        AwayTeam = g.Game.AwayTeam.Name,
-                        HomeGoals = g.HomeGoals,
-                        AwayGoals = g.AwayGoals,
-                        Date = g.Date
+                        Id = b.Id,
+                        GameId = b.GameId,
+                        CompetitionId = b.CompetitionId,
+                        HomeTeam = b.Game.HomeTeam.Name,
+                        AwayTeam = b.Game.AwayTeam.Name,
+                        HomeGoals = b.HomeGoals,
+                        AwayGoals = b.AwayGoals,
+                        GameDate = b.Game.Date,
+                        Date = b.Date
                     })
                     .ToArray();
 

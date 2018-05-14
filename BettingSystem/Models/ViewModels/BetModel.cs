@@ -15,6 +15,7 @@ namespace BettingSystem.Models.ViewModels
         public string AwayTeam { get; set; }
         public int HomeGoals { get; set; }
         public int AwayGoals { get; set; }
+        public DateTime GameDate { get; set; }
         public DateTime Date { get; set; }
         public bool BetMade { get; set; }
         public bool IsOver { get; set; }

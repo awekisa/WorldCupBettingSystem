@@ -12,7 +12,8 @@
         <tr>
             <th>N</th>
             <th>Game</th>
-            <th>Date</th>
+            <th>Game Date</th>
+            <th>Bet Date</th>
         </tr>
     </thead>
     <tbody>
@@ -34,28 +35,42 @@
                                 <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
 
                                 @if (bet.IsOver)
-    {
-                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
-}
-else
-{
-                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
-}
+                                {
+                                    <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
+                                }
+                                else
+                                {
+                                    <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+                                }
                                 <span class="col-md-1 text-center">:</span>
                                 @if (bet.IsOver)
-    {
-                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
-}
-else
-{
-                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
-}
+                                {
+                                    <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
+                                }
+                                else
+                                {
+                                    <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
+                                }
 
                                 <input class="col-md-3" value="@bet.AwayTeam" disabled />
-                                <input class="col-md-2" type="submit" value="Change" />
+
+                                @if (!bet.IsOver)
+                                {
+                                    <input class="col-md-2" type="submit" value="Change" />
+                                }
                             </div>
                         </form>
                     </th>
+                    <td>
+                        @if (Math.Round((DateTime.Now - bet.Date).TotalDays) > 0)
+                        {
+                            <span>Days left: @Math.Round((DateTime.Now - bet.Date).TotalDays)</span>
+                        }
+                        else
+                        {
+                            <span>Game is already over</span>
+                        }
+                    </td>
                     <td>@bet.Date</td>
                 </tr>
             }
@@ -73,28 +88,32 @@ else
                                 <input class="col-md-3 text-right" value="@bet.HomeTeam" disabled />
 
                                 @if (bet.IsOver)
-    {
-                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
-}
-else
-{
-                            <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
-}
+                                {
+                                    <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" disabled />
+                                }
+                                else
+                                {
+                                    <input class="col-md-1 text-right" type="number" min="0" name="homeGoals" value="@bet.HomeGoals" />
+                                }
                                 <span class="col-md-1 text-center">:</span>
                                 @if (bet.IsOver)
-    {
-                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
-}
-else
-{
-                            <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
-}
+                                {
+                                    <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" disabled />
+                                }
+                                else
+                                {
+                                    <input class="col-md-1" type="number" min="0" name="awayGoals" value="@bet.AwayGoals" />
+                                }
 
                                 <input class="col-md-3" value="@bet.AwayTeam" disabled />
-                                <input class="col-md-2" type="submit" value="Bet" />
+                                @if (!bet.IsOver)
+                                {
+                                    <input class="col-md-2" type="submit" value="Bet" />
+                                }
                             </div>
                         </form>
                     </th>
+                    <td>No bet have been made</td>
                     <td>@bet.Date</td>
                 </tr>
             }
