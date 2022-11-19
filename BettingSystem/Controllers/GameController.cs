@@ -63,19 +63,19 @@ namespace BettingSystem.Controllers
                         HomeTeamId = g.HomeTeamId,
                         HomeTeam = g.HomeTeam.Name,
                         AwayTeamId = g.AwayTeamId,
-                        CompetitionId = g.CompetitionId,
-                        Competition = g.Competition,
                         AwayTeam = g.AwayTeam.Name,
+                        Competition = g.Competition,
+                        CompetitionId = g.CompetitionId,
                         HomeGoals = g.HomeGoals,
                         AwayGoals = g.AwayGoals,
-                        IsOver = g.IsOver,
                         Date = g.Date
 
                     }).
                     FirstOrDefault(t => t.Id == gameId);
                 var teams = db.Teams.ToList();
+                var competitions = db.Competitions.ToList();
                 SelectList list = new SelectList(teams, "Id", "Name");
-                SelectList competitionSelectList = new SelectList(teams, "Id", "Name");
+                SelectList competitionSelectList = new SelectList(competitions, "Id", "Name");
                 ViewBag.Teams = list;
                 ViewBag.Competitions = competitionSelectList;
                 return View(game);

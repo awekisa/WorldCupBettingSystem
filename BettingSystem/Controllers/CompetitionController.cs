@@ -32,7 +32,7 @@ namespace BettingSystem.Controllers
                     db.Competitions.Add(competition);
                     db.SaveChanges();
 
-                    return RedirectToAction("ListCompetitions", "Admin");
+                    return RedirectToAction("ListCompetitions", "Competition");
                 }
             }
             else
